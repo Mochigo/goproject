@@ -13,7 +13,7 @@ type User struct {
 }
 
 func main() {
-	db, err := gorm.Open("mysql", "root:4399687@/goweb?charset=utf8&parseTime?&loc=Local")
+	db, err := gorm.Open("mysql", "username:password@/databasename?charset=utf8&parseTime?&loc=Local")
      if err != nil {
 	fmt.Println(err)
 	panic("连接数据库失败")
