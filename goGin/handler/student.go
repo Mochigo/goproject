@@ -9,6 +9,50 @@ type students struct {
      Student []string `json:"student"`
 }
 
+type courses struct {
+     Course []string `json: "course"`
+}
+
+type classrooms struct {
+     Classroom []string  `json:"classroom"`
+}
+
+func CreateCourse(c *gin.Context) {
+     var tmpcourse courses
+     if err := c.BindJSON(&tmpcourse); err != nil {
+	c.JSON(400,gin.H{
+	      "message":"Bad Request!",
+        })
+	return
+     for _,v := range tmpcourse.Course {
+	 c.JSON(200,gin.H{
+		"message":model.CreateCourse(v),
+	 })
+     }
+     c.JSON(200,gin.H{
+	    "message":"Creat Success",
+     })
+}
+
+func CreateClassroom(c *gin.Context) {
+     var tmpclassroom classrooms
+     if err := c.BindJSON(&tmpclassroom); err != nil {
+	c.JSON(400,gin.H{
+	      "message":"Bad Request!",
+        })
+	return
+     for _,v := range tmpclassroom.Classroom {
+	 c.JSON(200,gin.H{
+		"message":model.CreateClassroom(v),
+	 })
+     }
+     c.JSON(200,gin.H{
+	    "message":"Creat Success",
+     })
+}
+
+
+
 func CreateStudent(c *gin.Context) {
      var tmpStudent students
      if err := c.BindJSON(&tmpStudent); err != nil {
