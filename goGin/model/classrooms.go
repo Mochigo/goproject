@@ -1,19 +1,26 @@
 package model
 
-import "github.com/MitsuhaOma/goproject/goGin/model"
+import "log"
 
 type Classroom struct {
-     Courses    string
-     Roomnumber string
+     Classroom  string `gorm:"classroom" json:"classroom"`
 }
 
-func CheckClassroom(classroom Classroom) bool {
-     err := Db.Where("roomnumber = ?", classroom.Roomnumber).Error
-     return err == nil
+func CheckClassroom(classroom string) bool {
+     var newclassroom Classroom
+     if err := Db.Self.Model(&Classroom{}).Where("classroom = ?",classroom).First(&newclassroom).Error; err != nil {
+	log.Println(err)
+	return false
+     }
+     return true
 }
 
-func CreateClassroom(classroom Classroom) bool {
-     Db.create(&classroom)
+func CreateClassroom(classroom Classroom) {
+     if CheckClassroom(classroom.Classroom) {
+	return
+     }
+     Db.Self.Model(&Classroom{}).Create(&classroom)
 }
+     
 
 
